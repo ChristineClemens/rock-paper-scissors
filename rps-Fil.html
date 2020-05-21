@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            ## Inputs
+            user variable ["r", "p", "s"]
+            computer variable ["r", "p", "s"]
+
+            ## Logic
+            * get user input
+            var user = "r";
+
+            * randomly choose computer selection ["r", "p", "s"]
+
+            * figure out the winner...
+            - if user=computer: print "ties"
+
+            - if user="r": 
+                    if computer="p": print "computer wins"
+                    else print "computer looses"
+
+            - if user="p":
+                    if computer="s": print "computer wins"
+                    else print "computer looses"
+
+            - if user="s":
+                    if computer="r": printer "comptuer wins"
+                    else print "computer looses"
+
+            * print the winner if we haven't already. end.
+        */
+        function decideWinner( user, computer ){
+            if( user==computer ){
+                return "none";
+
+            } else {
+                // user & computer picked different choices, so find a winner
+                if( user=="r" ){
+                    // computer MUST have picked 'p' or 's'
+                    //      p: computer wins
+                    //      s: computer loses
+                    if( computer=="p" ){
+                        return "computer";
+                    } else {
+                        return "user";
+                    }
+                } else if( user=="p" ){
+                    // computer MUST have picked 'r' or 's'
+                    //      s: wins
+                    //      r: loses
+                    if( computer=="s" ){
+                        return "computer";
+                    } else {
+                        return "user";
+                    }
+                } else if( user=="s" ){
+                    // computer MUST have picked 'p' or 'r'
+                    //      r: wins
+                    //      p: loses
+                    if( computer=="r" ){
+                        return "computer";
+                    } else {
+                        return "user";
+                    }
+                }
+
+            }            
+        }
+
+
+        var user = "r";
+
+        var computerChoices = [ "r", "p", "s" ];
+        var computerIndexChoice = Math.floor( Math.random()*computerChoices.length ); // 0 .. 2
+        var computer = computerChoices[computerIndexChoice]; // r .. p .. s
+
+        console.log( `user: ${user}, computer: ${computer}` );
+
+        var result = decideWinner( user, computer );
+        console.log( `winner is: ${result}` );
+
+    </script>
+</body>
+</html>
