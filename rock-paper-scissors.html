@@ -7,7 +7,7 @@
 </head>
 <body>
     <script>
-        var compOptions = ["r", "p", "s"]
+        var compOptions = ["rock", "paper", "scissors"]
         var wins = 0;
         var ties = 0;
         var losses = 0;
@@ -16,7 +16,7 @@
             var computerInput = compOptions[Math.floor(Math.random() * compOptions.length)];
         }
 
-        var userInput = prompt("Enter r, p, or s to play!");
+        var userInput = prompt("Enter rock, paper, or scissors to play!");
         userInput = userInput.toLowerCase();
 
 // 1. Prompt user to enter r, p, or s representing rock, paper, or scissors.
