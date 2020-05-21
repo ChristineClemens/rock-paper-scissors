@@ -36,6 +36,15 @@
             * print the winner if we haven't already. end.
         */
         function decideWinner( user, computer ){
+
+            var userWinCnt = 0;
+            var compWinCnt = 0;
+            var tie = 0;
+
+            for (var gameCnt = 0; gameCnt <= 10; gameCnt++) {
+                var user = prompt (gameCnt+"/10: Pick rock, paper, or scissors.")
+            }
+
             if( user==computer ){
                 return "none";
 
