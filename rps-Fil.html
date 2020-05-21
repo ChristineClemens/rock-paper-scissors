@@ -35,16 +35,9 @@
 
             * print the winner if we haven't already. end.
         */
+        // INPUT: user=[r,p,s], computer=[r,p,s]
+        // OUTPUT: none|computer|user
         function decideWinner( user, computer ){
-
-            var userWinCnt = 0;
-            var compWinCnt = 0;
-            var tie = 0;
-
-            for (var gameCnt = 0; gameCnt <= 10; gameCnt++) {
-                var user = prompt (gameCnt+"/10: Pick rock, paper, or scissors.")
-            }
-
             if( user==computer ){
                 return "none";
 
@@ -82,17 +75,30 @@
             }            
         }
 
+        var userWinCnt = 0;
+        var computerWinCnt = 0;
+        var noneWinCnt = 0;
 
-        var user = "r";
+        for( var gameCnt=0; gameCnt<10; gameCnt++ ){
+            var user = prompt( gameCnt+"/10: Pick rock[r], paper[p], or scissors[s]" );
 
-        var computerChoices = [ "r", "p", "s" ];
-        var computerIndexChoice = Math.floor( Math.random()*computerChoices.length ); // 0 .. 2
-        var computer = computerChoices[computerIndexChoice]; // r .. p .. s
+            var computerChoices = [ "r", "p", "s" ];
+            var computerIndexChoice = Math.floor( Math.random()*computerChoices.length ); // 0 .. 2
+            var computer = computerChoices[computerIndexChoice]; // r .. p .. s
 
-        console.log( `user: ${user}, computer: ${computer}` );
+            console.log( `user: ${user}, computer: ${computer}` );
 
-        var result = decideWinner( user, computer );
-        console.log( `winner is: ${result}` );
+            var result = decideWinner( user, computer );
+
+            // track wins
+            if( result=="user" ) userWinCnt++;
+            else if( result=="computer" ) computerWinCnt++;
+            else if( result=="none" ) noneWinCnt++;
+
+            console.log( `winner is: ${result}` );
+        }
+
+        console.log( `user wins: ${userWinCnt} times, computer wins: ${computerWinCnt} times, no winner ${noneWinCnt} times` );
 
     </script>
 </body>
