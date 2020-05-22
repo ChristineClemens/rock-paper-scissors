@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Rock Paper Scissors</h1>
+            <p class="lead">This is our RPS game, give it a try and see if you win!</p>
+            <hr class="my-4">
+            <p>Press this button to start</p>
+            
+            <form onSubmit="return false">
+                <div class="form-group">
+                <label for="userChoice">Your choices</label>
+                <input type="text" class="form-control" id="userChoice" value="">
+                </div>
+                <button onClick="playGame()" class="btn btn-primary btn-lg" href="#" role="button">Let's Play!</button>
+            </form>
+
+            <hr />
+            <ul id='outcomeList' class="list-group">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        /*
+            ## Inputs
+            user variable ["r", "p", "s"]
+            computer variable ["r", "p", "s"]
+
+            ## Logic
+            * get user input
+            var user = "r";
+
+            * randomly choose computer selection ["r", "p", "s"]
+
+            * figure out the winner...
+            - if user=computer: print "ties"
+
+            - if user="r": 
+                    if computer="p": print "computer wins"
+                    else print "computer looses"
+
+            - if user="p":
+                    if computer="s": print "computer wins"
+                    else print "computer looses"
+
+            - if user="s":
+                    if computer="r": printer "comptuer wins"
+                    else print "computer looses"
+
+            * print the winner if we haven't already. end.
+
+            # Future Features
+            - online play - between players over the internet
+        */
+
+        // INPUT: user=[r,p,s], computer=[r,p,s]
+        // OUTPUT: none|computer|user
+        function decideWinner( user, computer ){
+            if( user==computer ){
+                return "none";
+            }
+
+            // user & computer picked different choices, so find a winner
+            if( user=="r" ){
+                // computer MUST have picked 'p' or 's'
+                //      p: computer wins
+                //      s: computer loses
+                if( computer=="p" ){
+                    return "computer";
+                } else {
+                    return "user";
+                }
+            } else if( user=="p" ){
+                // computer MUST have picked 'r' or 's'
+                //      s: wins
+                //      r: loses
+                if( computer=="s" ){
+                    return "computer";
+                } else {
+                    return "user";
+                }
+            } else if( user=="s" ){
+                // computer MUST have picked 'p' or 'r'
+                //      r: wins
+                //      p: loses
+                if( computer=="r" ){
+                    return "computer";
+                } else {
+                    return "user";
+                }
+            }
+        }
+
+        function makeComputerChoice(){
+            var computerChoices = [ "r", "p", "s" ]
+            var computerIndexChoice = Math.floor( Math.random()*computerChoices.length ); // 0 .. 2
+            return computerChoices[computerIndexChoice]; // r .. p .. s
+        }        
+
+        
+        var userWinCnt = 0;
+        var computerWinCnt = 0;
+        var noneWinCnt = 0;
+
+        function playGame(){
+            // var user = prompt( gameCnt+"/10: Pick rock[r], paper[p], or scissors[s]" );
+            var user = document.querySelector('#userChoice').value;
+            document.querySelector('#userChoice').value = "";
+            var computer = makeComputerChoice();
+
+            console.log( `user: ${user}, computer: ${computer}` );
+
+            var winnerResult = decideWinner( user, computer );
+            console.log( `winner is : ${winnerResult}` );
+
+            // track wins
+            if( winnerResult=="user" ){
+                userWinCnt++;
+            } else if( winnerResult=="computer" ){
+                computerWinCnt++;
+            } else if( winnerResult=="none" ){ 
+                noneWinCnt++;
+            }
+
+            console.log( `user wins: ${userWinCnt} times, computer wins: ${computerWinCnt} times, no winner ${noneWinCnt} times` );
+        
+            var list = document.querySelector('#outcomeList').innerHTML;            
+            document.querySelector('#outcomeList').innerHTML = 
+                `<li class="list-group-item">User (${user}); Computer (${computer}); * Winner: ${winnerResult}</li>`
+                + list;
+        }
+
+
+    </script>
+</body>
+</html>
